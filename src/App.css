@@ -1,8 +1,14 @@
 .App {
   text-align: center;
 }
+.red{
+  color:red;
+}
+.bold{
+  font-weight: bold;
+}
 
-button{
+/* /* button{
   padding : 10px;
   cursor:pointer;
   border-radius:8px;
@@ -12,5 +18,5 @@ button{
   border-color: white;
   font-weight:bold;
   font-size: 20px;
-  /* background:blue; */
-}
+   background:blue; 
+}  */

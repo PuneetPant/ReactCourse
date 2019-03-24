@@ -33,18 +33,18 @@ class App extends Component {
 
   }
   nameChangedHandler = (event,id) => {
-    const personIndex = this.state.persons.findIndex(p => {
-      return p.id===id;
-    })
+    // const personIndex = this.state.persons.findIndex(p => {
+    //   return p.id===id;
+    // })
 
     const person = {
-      ...this.state.persons[personIndex]
+      ...this.state.persons[id]
     };
 
     // person.name=event.target.value;
     person.name=event.target.value;
     const persons = [...this.state.persons];
-    persons[personIndex]=person;
+    persons[id]=person;
     console.log("Inside nameChangedHandler");
     this.setState({
       persons: persons
@@ -58,6 +58,14 @@ class App extends Component {
     })
   }
   render() {
+    const style= {
+      padding:'8px',
+      border:'1px solid blue',
+      color:'white',
+      backgroundColor:'green',
+      font:'inherit',
+      cursor:'pointer'
+    }
 
     let persons = null;
     if (this.state.showPersons === true) {
@@ -69,20 +77,32 @@ class App extends Component {
               name={person.name}
               age={person.age}
               key={person.id} 
-              changed={(event) => this.nameChangedHandler(event,person.id)}
+              changed={(event) => this.nameChangedHandler(event,index)}
                
                />
           })
           }
+          
 
         </div>
 
       );
+      style.backgroundColor='red'
+    }
+    const classes=[];
+    if(this.state.persons.length <=2){
+      classes.push('red');
+    }
+    if(this.state.persons.length <= 1){
+      classes.push('bold');
     }
     return (
       <div className="App">
         <h1>Hi i m a React App</h1>
-        <button onClick={this.toggleNameHandler}>Toggle Persons</button>
+        <p className={classes.join(' ')}>This is really working</p>
+        <button 
+        style={style} 
+        onClick={this.toggleNameHandler}>Toggle Persons</button>
         {persons}
 
         {/* <button onClick={this.switchNameHandler.bind(this, "Maximillian")}>Switch Name</button> */}
