@@ -2,4 +2,15 @@
   text-align: center;
 }
 
-
+button{
+  padding : 10px;
+  cursor:pointer;
+  border-radius:8px;
+  color:indianred;
+  text-decoration: none;
+  box-shadow: 2px 3px grey;
+  border-color: white;
+  font-weight:bold;
+  font-size: 20px;
+  /* background:blue; */
+}
