@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium,{StyleRoot} from 'radium';
+// import Radium,{StyleRoot} from 'radium';
 
 class App extends Component {
 
@@ -59,7 +59,6 @@ class App extends Component {
     })
   }
   render() {
-    console.log("No Change");
     const style= {
       padding:'8px',
       border:'1px solid blue',
@@ -68,10 +67,10 @@ class App extends Component {
       font:'inherit',
       cursor:'pointer',
       borderRadius:'8px',
-      ':hover':{
-        backgroundColor:'lightgreen',
-        color:'black'
-      }
+      // ':hover':{
+      //   backgroundColor:'lightgreen',
+      //   color:'black'
+      // }
     }
 
     let persons = null;
@@ -95,10 +94,10 @@ class App extends Component {
 
       );
       style.backgroundColor='red'
-      style[':hover']={
-        backgroundColor:'salmon',
-        color:'black'
-      }
+      // style[':hover']={
+      //   backgroundColor:'salmon',
+      //   color:'black'
+      // }
     }
     const classes=[];
     if(this.state.persons.length <=2){
@@ -108,7 +107,7 @@ class App extends Component {
       classes.push('bold');
     }
     return (
-      < StyleRoot>
+      // < StyleRoot>
       <div className="App">
         <h1>Hi i m a React App</h1>
         <p className={classes.join(' ')}>This is really working</p>
@@ -150,10 +149,11 @@ class App extends Component {
 
 
       </div>
-      </StyleRoot>
+      // </StyleRoot>
     );
   }
 }
 
 
-export default Radium(App);
+// export default Radium(App);
+export default App;
