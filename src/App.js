@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
+// import classes from './App.css';
 import './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 // import Radium,{StyleRoot} from 'radium';
 
 class App extends Component {
 
   state = {
     persons: [
-      { id:1 ,name: 'Max', age: 28 },
-      { id:2,name: 'Manu', age: 29 },
-      { id:3  ,name: 'Stephanie', age: 26 }
+      { id: 1, name: 'Max', age: 28 },
+      { id: 2, name: 'Manu', age: 29 },
+      { id: 3, name: 'Stephanie', age: 26 }
     ],
     showPersons: false
   }
@@ -27,14 +29,14 @@ class App extends Component {
   deletePersonHandler = (personIndex) => {
     // const persons=this.state.persons.slice();
     const persons = [...this.state.persons];
-    persons.splice(personIndex,1);
+    persons.splice(personIndex, 1);
     this.setState({
-      persons:persons,
+      persons: persons,
     })
 
   }
-  nameChangedHandler = (event,id) => {
-    // const personIndex = this.state.persons.findIndex(p => {
+  nameChangedHandler = (event, id) => {
+    // const id = this.state.persons.findIndex(p => {
     //   return p.id===id;
     // })
 
@@ -43,9 +45,9 @@ class App extends Component {
     };
 
     // person.name=event.target.value;
-    person.name=event.target.value;
+    person.name = event.target.value;
     const persons = [...this.state.persons];
-    persons[id]=person;
+    persons[id] = person;
     console.log("Inside nameChangedHandler");
     this.setState({
       persons: persons
@@ -59,14 +61,14 @@ class App extends Component {
     })
   }
   render() {
-    const style= {
-      padding:'8px',
-      border:'1px solid blue',
-      color:'white',
-      backgroundColor:'green',
-      font:'inherit',
-      cursor:'pointer',
-      borderRadius:'8px',
+    const style = {
+      padding: '8px',
+      border: '1px solid blue',
+      color: 'white',
+      backgroundColor: 'green',
+      font: 'inherit',
+      cursor: 'pointer',
+      borderRadius: '8px',
       // ':hover':{
       //   backgroundColor:'lightgreen',
       //   color:'black'
@@ -76,44 +78,47 @@ class App extends Component {
     let persons = null;
     if (this.state.showPersons === true) {
       persons = (
-        <div>
-          {this.state.persons.map((person,index) => {
-            return <Person
-              click={this.deletePersonHandler.bind(this,index)}
-              name={person.name}
-              age={person.age}
-              key={person.id} 
-              changed={(event) => this.nameChangedHandler(event,index)}
-               
-               />
-          })
-          }
-          
+        <ErrorBoundary>
+          <div>
+            {this.state.persons.map((person, index) => {
+              return <Person
+                click={this.deletePersonHandler.bind(this, index)}
+                name={person.name}
+                age={person.age}
+                key={person.id}
+                changed={(event) => this.nameChangedHandler(event, index)}
 
-        </div>
+              />
+            })
+            }
+
+
+          </div>
+        </ErrorBoundary>
 
       );
-      style.backgroundColor='red'
+      style.backgroundColor = 'red'
       // style[':hover']={
       //   backgroundColor:'salmon',
       //   color:'black'
       // }
     }
-    const classes=[];
-    if(this.state.persons.length <=2){
-      classes.push('red');
+    const assignedClasses = [];
+    if (this.state.persons.length <= 2) {
+      assignedClasses.push('red');
+      // assignedClasses.push(classes.red);
     }
-    if(this.state.persons.length <= 1){
-      classes.push('bold');
+    if (this.state.persons.length <= 1) {
+      assignedClasses.push('bold');
     }
     return (
       // < StyleRoot>
-      <div className="App">
+      <div className='App'>
         <h1>Hi i m a React App</h1>
-        <p className={classes.join(' ')}>This is really working</p>
-        <button 
-        style={style} 
-        onClick={this.toggleNameHandler}>Toggle Persons</button>
+        <p className={assignedClasses.join(' ')}>This is really working</p>
+        <button
+          style={style}
+          onClick={this.toggleNameHandler}>Toggle Persons</button>
         {persons}
 
         {/* <button onClick={this.switchNameHandler.bind(this, "Maximillian")}>Switch Name</button> */}
