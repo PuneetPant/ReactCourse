@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 // import classes from './App.css';
 import './App.css';
-import Person from './Person/Person';
-import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
+import Person from '../components/Persons/Person/Person';
+import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
 // import Radium,{StyleRoot} from 'radium';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
 
-  state = {
-    persons: [
-      { id: 1, name: 'Max', age: 28 },
-      { id: 2, name: 'Manu', age: 29 },
-      { id: 3, name: 'Stephanie', age: 26 }
-    ],
-    showPersons: false
+  constructor(props){
+    super(props);
+    this.state={
+      persons: [
+        { id: 1, name: 'Max', age: 28 },
+        { id: 2, name: 'Manu', age: 29 },
+        { id: 3, name: 'Stephanie', age: 26 }
+      ],
+      showPersons: false
+
+    }
+    console.log('[App.js] Inside Constructor');
   }
+  componentWillMount=() =>{
+    console.log('[App.js] Inside componentWillMount'); 
+  }
+  componentDidMount=()=>{
+    console.log('[App.js] Inside componentDidMount');
+  }
+  
   // switchNameHandler = (newName) => {
   //   console.log("was clicked");
   //   //  this.state.persons[0].name="Maximillian";
@@ -61,6 +75,7 @@ class App extends Component {
     })
   }
   render() {
+    console.log('[App.js] Inside Render()');
     const style = {
       padding: '8px',
       border: '1px solid blue',
@@ -78,23 +93,28 @@ class App extends Component {
     let persons = null;
     if (this.state.showPersons === true) {
       persons = (
-        <ErrorBoundary>
-          <div>
-            {this.state.persons.map((person, index) => {
-              return <Person
-                click={this.deletePersonHandler.bind(this, index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                changed={(event) => this.nameChangedHandler(event, index)}
+        <div>
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.nameChangedHandler} />
+        </div>
+        // <div>
+        //   {this.state.persons.map((person, index) => {
+        //     return <Person
+        //       click={this.deletePersonHandler.bind(this, index)}
+        //       name={person.name}
+        //       age={person.age}
+        //       key={person.id}
+        //       changed={(event) => this.nameChangedHandler(event, index)}
 
-              />
-            })
-            }
+        //     />
+        //   })
+        //   }
 
 
-          </div>
-        </ErrorBoundary>
+        // </div>
+
 
       );
       style.backgroundColor = 'red'
@@ -103,22 +123,28 @@ class App extends Component {
       //   color:'black'
       // }
     }
-    const assignedClasses = [];
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push('red');
-      // assignedClasses.push(classes.red);
-    }
-    if (this.state.persons.length <= 1) {
-      assignedClasses.push('bold');
-    }
+    // const assignedClasses = [];
+    // if (this.state.persons.length <= 2) {
+    //   assignedClasses.push('red');
+    //   // assignedClasses.push(classes.red);
+    // }
+    // if (this.state.persons.length <= 1) {
+    //   assignedClasses.push('bold');
+    // }
     return (
       // < StyleRoot>
       <div className='App'>
-        <h1>Hi i m a React App</h1>
+        <Cockpit
+          appTitle={this.props.title}
+          persons={this.state.persons}
+          click={this.toggleNameHandler}
+        />
+
+        {/* <h1>Hi i m a React App</h1>
         <p className={assignedClasses.join(' ')}>This is really working</p>
         <button
           style={style}
-          onClick={this.toggleNameHandler}>Toggle Persons</button>
+          onClick={this.toggleNameHandler}>Toggle Persons</button> */}
         {persons}
 
         {/* <button onClick={this.switchNameHandler.bind(this, "Maximillian")}>Switch Name</button> */}
